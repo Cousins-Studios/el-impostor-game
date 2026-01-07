@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type Language = 'es' | 'en';
+export type Language = 'es' | 'en' | 'fr' | 'de' | 'it';
 export type AppTheme = 'dark' | 'light';
 
 interface SettingsState {
