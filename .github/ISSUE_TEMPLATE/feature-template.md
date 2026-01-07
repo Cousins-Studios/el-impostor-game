@@ -33,10 +33,5 @@ assignees: ''
 
 ---
 
-## 📚 Documentation/context for AI
-https://github.com/AquaStark/API-Aqua-Stark/tree/main/docs
-
----
-
 ## 🗒️ Additional notes
 <!-- Extra considerations, edge cases, dependencies or reminders -->
