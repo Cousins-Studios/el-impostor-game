@@ -69,6 +69,11 @@ Follow these steps to run the game in your local environment!
     npx expo start
     ```
 
+4. **Run the project iOS:**
+    ```bash
+    npx expo start --ios
+    ```
+
 Use the **Expo Go** app on your mobile device or an emulator to test the game. 📲
 
 ---
