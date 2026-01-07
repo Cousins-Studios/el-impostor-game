@@ -9,9 +9,20 @@ interface ButtonProps {
     className?: string; // container extra styles
     textClassName?: string;
     icon?: React.ReactNode;
+    iconPosition?: 'left' | 'right';
 }
 
-export function Button({ onPress, title, variant = 'primary', disabled, loading, className, textClassName, icon }: ButtonProps) {
+export function Button({
+    onPress,
+    title,
+    variant = 'primary',
+    disabled,
+    loading,
+    className,
+    textClassName,
+    icon,
+    iconPosition = 'left'
+}: ButtonProps) {
     let bg = "bg-primary-action";
     let text = "text-white";
     let border = "";
@@ -24,7 +35,7 @@ export function Button({ onPress, title, variant = 'primary', disabled, loading,
         border = "border-2 border-primary-action";
         text = "text-primary-action";
     } else if (variant === 'danger') {
-        bg = "bg-red-600"; // fallback or specific
+        bg = "bg-red-600";
         text = "text-white";
     }
 
@@ -34,20 +45,46 @@ export function Button({ onPress, title, variant = 'primary', disabled, loading,
         border = "border-muted";
     }
 
+    const iconSize = 20;
+    const iconMargin = 12; // equivalent to mr-3/ml-3 (3 * 4 = 12)
+    const iconFootprint = icon ? (iconSize + iconMargin) : 0;
+
     return (
         <TouchableOpacity
             onPress={onPress}
             disabled={disabled || loading}
             activeOpacity={0.8}
-            className={`h-14 rounded-2xl flex-row items-center justify-center shadow-lg ${bg} ${border} ${className || ''}`}
+            className={`h-12 px-6 rounded-2xl flex-row items-center justify-center shadow-sm ${bg} ${border} ${className || ''}`}
         >
             {loading ? (
-                <ActivityIndicator color="white" />
+                <ActivityIndicator color={variant === 'outline' ? "#E5533D" : "white"} />
             ) : (
-                <>
-                    {icon && <View className="mr-2">{icon}</View>}
-                    <Text className={`text-lg font-bold ${text} ${textClassName || ''}`}>{title}</Text>
-                </>
+                <View className="flex-row items-center justify-center w-full relative">
+                    {/* Invisible spacer to balance the icon on the opposite side and keep text perfectly centered */}
+                    {icon && iconPosition === 'right' && <View style={{ width: iconFootprint }} />}
+
+                    {icon && iconPosition === 'left' && (
+                        <View className="mr-3 items-center justify-center" style={{ width: iconSize, height: iconSize }}>
+                            {icon}
+                        </View>
+                    )}
+
+                    <Text
+                        style={{ includeFontPadding: false }}
+                        className={`font-black text-center ${text} text-base leading-tight ${textClassName || ''}`}
+                    >
+                        {title}
+                    </Text>
+
+                    {icon && iconPosition === 'right' && (
+                        <View className="ml-3 items-center justify-center" style={{ width: iconSize, height: iconSize }}>
+                            {icon}
+                        </View>
+                    )}
+
+                    {/* Invisible spacer to balance the icon on the opposite side and keep text perfectly centered */}
+                    {icon && iconPosition === 'left' && <View style={{ width: iconFootprint }} />}
+                </View>
             )}
         </TouchableOpacity>
     );
