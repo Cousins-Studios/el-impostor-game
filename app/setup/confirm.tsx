@@ -28,7 +28,7 @@ export default function ConfirmGame() {
     const modeLabel = settings.impostorMode === 'fixed' ? t.gameConfig.modeFixed : t.gameConfig.modeProb;
 
     return (
-        <ScreenWrapper>
+        <ScreenWrapper showBackButton={true}>
             <AppText variant="h1" className="mb-8">{t.common.ready}</AppText>
 
             <View className="bg-surface-card p-6 rounded-2xl border border-surface-soft mb-8">

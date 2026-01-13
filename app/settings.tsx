@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { ChevronLeft, Globe, Moon, Sun } from 'lucide-react-native';
+import { Globe, Moon, Sun } from 'lucide-react-native';
 import { TouchableOpacity, View } from 'react-native';
 import ScreenWrapper from '../components/ScreenWrapper';
 import { AppText } from '../components/Typography';
@@ -27,14 +27,8 @@ export default function SettingsScreen() {
     ];
 
     return (
-        <ScreenWrapper>
-            <View className="flex-row items-center mb-8">
-                <TouchableOpacity
-                    onPress={() => router.back()}
-                    className={`${isDark ? 'bg-surface-soft' : 'bg-gray-200'} p-2 rounded-full mr-4`}
-                >
-                    <ChevronLeft size={28} color={isDark ? "white" : "#101828"} />
-                </TouchableOpacity>
+        <ScreenWrapper showBackButton={true}>
+            <View className="mb-8">
                 <AppText variant="h1" className="mb-0">{t.settings.title}</AppText>
             </View>
 

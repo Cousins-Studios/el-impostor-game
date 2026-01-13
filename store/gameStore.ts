@@ -44,6 +44,7 @@ interface GameState {
     impostorGuess: (word: string) => boolean;
     resolveImpostorGuess: (didGuess: boolean) => void;
     nextRound: () => void;
+    undoElimination: () => void;
     resetGame: () => void;
 }
 
@@ -193,6 +194,17 @@ export const useGameStore = create<GameState>((set, get) => ({
             // Usually this logic is: Eliminated -> Revealed as Impostor -> Gets Guess -> Fails -> REALLY dead.
             // Logic is preserved.
             return false;
+        }
+    },
+
+    undoElimination: () => {
+        const { eliminatedPlayerId } = get();
+        if (eliminatedPlayerId) {
+            set((state) => ({
+                players: state.players.map(p => p.id === eliminatedPlayerId ? { ...p, isAlive: true } : p),
+                eliminatedPlayerId: null,
+                gameStatus: 'discussion' // Restore status if needed
+            }));
         }
     },
 

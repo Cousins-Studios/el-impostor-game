@@ -40,7 +40,7 @@ export default function AddPlayers() {
     };
 
     return (
-        <ScreenWrapper>
+        <ScreenWrapper showBackButton={true}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 className="flex-1"

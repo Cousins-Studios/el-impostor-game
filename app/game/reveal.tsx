@@ -54,6 +54,15 @@ export default function RevealScreen() {
         scale.value = withSpring(1);
     };
 
+    const handleBack = () => {
+        if (index > 0) {
+            setIndex(index - 1);
+            rotate.value = 0;
+        } else {
+            router.back();
+        }
+    };
+
     const handleNext = () => {
         if (index < players.length - 1) {
             setIndex(index + 1);
@@ -66,7 +75,7 @@ export default function RevealScreen() {
     if (!currentPlayer) return null;
 
     return (
-        <ScreenWrapper className="justify-between py-6">
+        <ScreenWrapper showBackButton={true} onBackPress={handleBack} className="justify-between py-6">
             <View className="items-center">
                 {/* Progress Indicators */}
                 <View className="flex-row gap-2 mb-8">

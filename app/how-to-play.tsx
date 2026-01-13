@@ -1,12 +1,11 @@
 import { useRouter } from 'expo-router';
-import { Button } from '../components/Button';
 import ScreenWrapper from '../components/ScreenWrapper';
 import { AppText } from '../components/Typography';
 
 export default function HowToPlay() {
     const router = useRouter();
     return (
-        <ScreenWrapper scroll>
+        <ScreenWrapper scroll showBackButton={true}>
             <AppText variant="h1">How to Play</AppText>
 
             <AppText variant="h2" className="mt-4 text-primary-soft">The Concept</AppText>
@@ -25,7 +24,6 @@ export default function HowToPlay() {
             <AppText className="mb-2 text-text-secondary">• Civilians win if they eliminate all Impostors.</AppText>
             <AppText className="mb-8 text-text-secondary">• Impostors win if they outnumber Civilians OR guess the word correctly upon elimination.</AppText>
 
-            <Button title="Back" onPress={() => router.back()} variant="secondary" />
         </ScreenWrapper>
     )
 }

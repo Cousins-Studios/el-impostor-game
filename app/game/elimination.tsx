@@ -10,12 +10,17 @@ import { useGameStore } from '../../store/gameStore';
 import { useSettingsStore } from '../../store/settingsStore';
 
 export default function EliminationScreen() {
-    const { players, eliminatedPlayerId, checkVictoryAfterElimination: checkVictory, resolveImpostorGuess } = useGameStore();
+    const { players, eliminatedPlayerId, checkVictoryAfterElimination: checkVictory, resolveImpostorGuess, undoElimination } = useGameStore();
     const { appTheme } = useSettingsStore();
     const isDark = appTheme === 'dark';
     const router = useRouter();
     const [guessResolved, setGuessResolved] = useState(false);
     const t = useI18n();
+
+    const handleBack = () => {
+        undoElimination();
+        router.back();
+    };
 
     const player = players.find(p => p.id === eliminatedPlayerId);
     if (!player) return null;
@@ -41,7 +46,7 @@ export default function EliminationScreen() {
     };
 
     return (
-        <ScreenWrapper className="justify-center items-center py-6">
+        <ScreenWrapper showBackButton={true} onBackPress={handleBack} className="justify-center items-center py-6">
             <View className="items-center flex-1 justify-center w-full px-6">
                 <AppText className="text-primary-action font-black text-[10px] uppercase tracking-[4px] mb-2">
                     {t.elimination.title.toUpperCase()}

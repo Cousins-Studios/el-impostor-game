@@ -14,7 +14,7 @@ export default function PlayRound() {
     const t = useI18n();
 
     return (
-        <ScreenWrapper className="justify-center items-center py-8">
+        <ScreenWrapper showBackButton={true} className="justify-center items-center py-8">
             <View className="items-center flex-1 justify-center w-full px-6">
                 <View className={`${isDark ? 'bg-[#182235]' : 'bg-white shadow-lg'} p-4 rounded-full mb-8 border-2 border-[#4CC9F0]/20`}>
                     <MessageSquare size={40} color="#4CC9F0" strokeWidth={1.5} />

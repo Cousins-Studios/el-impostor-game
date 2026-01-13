@@ -30,7 +30,7 @@ export default function GameConfig() {
     };
 
     return (
-        <ScreenWrapper>
+        <ScreenWrapper showBackButton={true}>
             <View className="flex-1">
                 <View className="mb-4">
                     <AppText variant="h1" className="text-4xl font-black mb-1">{t.gameConfig.title}</AppText>

@@ -74,7 +74,7 @@ export default function ThemeSelection() {
     );
 
     return (
-        <ScreenWrapper>
+        <ScreenWrapper showBackButton={true}>
             <View className="mb-8">
                 <AppText variant="h1" className="mb-1 text-4xl font-black">{t.themeSelection.title}</AppText>
                 <AppText variant="body" className="text-text-secondary">{t.themeSelection.subtitle}</AppText>
