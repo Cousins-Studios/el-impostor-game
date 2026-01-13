@@ -25,7 +25,7 @@ export default function RoundStart() {
         .replace('{direction}', localizedDirection);
 
     return (
-        <ScreenWrapper>
+        <ScreenWrapper showBackButton={true}>
             <View className="flex-1 justify-center px-4">
                 {/* Starting Player Section */}
                 <View className="items-center mb-10">
