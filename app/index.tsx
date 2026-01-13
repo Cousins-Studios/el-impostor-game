@@ -1,15 +1,19 @@
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useRef } from 'react';
 import { Animated, Image, Text, View } from 'react-native';
+import { useSettingsStore } from '../store/settingsStore';
 
 import splashLogo from '../assets/images/splash_logo.png';
 
 export default function SplashScreen() {
     const router = useRouter();
+    const { hasSeenSplash, setHasSeenSplash } = useSettingsStore();
     const fadeAnim = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
+        if (hasSeenSplash) return;
+
         fadeAnim.setValue(0);
 
         Animated.sequence([
@@ -26,9 +30,16 @@ export default function SplashScreen() {
                 useNativeDriver: true,
             }),
         ]).start(({ finished }) => {
-            if (finished) router.replace('/home');
+            if (finished) {
+                setHasSeenSplash(true);
+                router.replace('/home');
+            }
         });
-    }, []);
+    }, [hasSeenSplash]);
+
+    if (hasSeenSplash) {
+        return <Redirect href="/home" />;
+    }
 
     return (
         <View style={{ flex: 1, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center' }}>
