@@ -26,7 +26,7 @@ export default function VoteScreen() {
     };
 
     return (
-        <ScreenWrapper>
+        <ScreenWrapper showBackButton={true}>
             <View className="flex-1 px-4">
                 <View className="mt-8 mb-10">
                     <AppText variant="h1" className={`text-4xl font-black mb-2 ${isDark ? 'text-white' : 'text-[#101828]'}`}>
