@@ -31,7 +31,9 @@ export const TRANSLATIONS = {
             addPlayer: "Agregar Jugador",
             namePlaceholder: "Nombre del jugador",
             startGame: "Comenzar Juego",
-            minPlayers: "Mínimo 3 jugadores"
+            minPlayers: "Mínimo 3 jugadores",
+            duplicateTitle: "Nombre Duplicado",
+            duplicateNameError: "Ya hay un jugador con ese nombre. ¡Elige otro!"
         },
         gameConfig: {
             title: "Configuración",
@@ -152,7 +154,9 @@ export const TRANSLATIONS = {
             addPlayer: "Add Player",
             namePlaceholder: "Player name",
             startGame: "Start Game",
-            minPlayers: "Min 3 players"
+            minPlayers: "Min 3 players",
+            duplicateTitle: "Duplicate Name",
+            duplicateNameError: "That name is already taken. Pick another one!"
         },
         gameConfig: {
             title: "Config",
@@ -273,7 +277,9 @@ export const TRANSLATIONS = {
             addPlayer: "Ajouter Joueur",
             namePlaceholder: "Nom du joueur",
             startGame: "Commencer",
-            minPlayers: "Min 3 joueurs"
+            minPlayers: "Min 3 joueurs",
+            duplicateTitle: "Nom Dupliqué",
+            duplicateNameError: "Ce nom est déjà pris. Choisissez-en un autre !"
         },
         gameConfig: {
             title: "Config",
@@ -394,7 +400,9 @@ export const TRANSLATIONS = {
             addPlayer: "Spieler hinzufügen",
             namePlaceholder: "Spielername",
             startGame: "Spiel starten",
-            minPlayers: "Min 3 Spieler"
+            minPlayers: "Min 3 Spieler",
+            duplicateTitle: "Doppelter Name",
+            duplicateNameError: "Name bereits vergeben. Wähle einen anderen!"
         },
         gameConfig: {
             title: "Konfig",
@@ -515,7 +523,9 @@ export const TRANSLATIONS = {
             addPlayer: "Aggiungi Giocatore",
             namePlaceholder: "Nome giocatore",
             startGame: "Inizia Gioco",
-            minPlayers: "Min 3 giocatori"
+            minPlayers: "Min 3 giocatori",
+            duplicateTitle: "Nome Duplicato",
+            duplicateNameError: "Nome già in uso. Scegline un altro!"
         },
         gameConfig: {
             title: "Config",
