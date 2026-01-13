@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, TextInput, TouchableOpacity, View } from 'react-native';
 import DraggableFlatList, { ScaleDecorator } from 'react-native-draggable-flatlist';
 import { Button } from '../../components/Button';
+import { CustomAlert } from '../../components/CustomAlert';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import { AppText } from '../../components/Typography';
 import { useI18n } from '../../constants/i18n';
@@ -16,11 +17,24 @@ export default function AddPlayers() {
     const { appTheme } = useSettingsStore();
     const isDark = appTheme === 'dark';
     const [name, setName] = useState('');
+    const [showError, setShowError] = useState(false);
     const t = useI18n();
 
     const handleAdd = () => {
-        if (name.trim()) {
-            addPlayer(name.trim());
+        const trimmed = name.trim();
+        if (trimmed) {
+            // Normalization: Lowercase + Remove Accents
+            const normalize = (str: string) => str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+            const normalizedNew = normalize(trimmed);
+            const exists = players.some(p => normalize(p.name) === normalizedNew);
+
+            if (exists) {
+                setShowError(true);
+                return;
+            }
+
+            addPlayer(trimmed);
             setName('');
         }
     };
@@ -100,6 +114,14 @@ export default function AddPlayers() {
                     </AppText>
                 )}
             </View>
+
+            <CustomAlert
+                visible={showError}
+                title={t.playerSetup.duplicateTitle}
+                message={t.playerSetup.duplicateNameError}
+                onClose={() => setShowError(false)}
+                buttonText={"OK"}
+            />
         </ScreenWrapper>
     );
 }
