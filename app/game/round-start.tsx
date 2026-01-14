@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import { ArrowLeft, ArrowRight, Play } from 'lucide-react-native';
-import { View } from 'react-native';
+import { Image, View } from 'react-native';
+import appIcon from '../../assets/images/icon.png';
 import { Button } from '../../components/Button';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import { AppText } from '../../components/Typography';
@@ -75,6 +76,13 @@ export default function RoundStart() {
                     icon={<Play size={24} color="white" fill="white" />}
                     iconPosition="left"
                 />
+                {/* Subtle app branding */}
+                <View className="items-center mt-4">
+                    <Image
+                        source={appIcon}
+                        style={{ width: 22, height: 22, borderRadius: 5, opacity: 0.3 }}
+                    />
+                </View>
             </View>
         </ScreenWrapper>
     );
