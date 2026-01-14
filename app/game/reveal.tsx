@@ -1,7 +1,8 @@
 import { useRouter } from 'expo-router';
 import { AlertCircle, ArrowRight, Fingerprint, ShieldCheck } from 'lucide-react-native';
 import { useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Image, Pressable, StyleSheet, View } from 'react-native';
+import appIcon from '../../assets/images/icon.png';
 import Animated, { interpolate, useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
 import { Button } from '../../components/Button';
 import ScreenWrapper from '../../components/ScreenWrapper';
@@ -163,6 +164,12 @@ export default function RevealScreen() {
                     iconPosition="right"
                 />
             </View>
+
+            {/* Subtle app branding */}
+            <Image
+                source={appIcon}
+                style={{ position: 'absolute', bottom: 8, right: 8, width: 20, height: 20, borderRadius: 4, opacity: 0.2 }}
+            />
         </ScreenWrapper>
     );
 }
