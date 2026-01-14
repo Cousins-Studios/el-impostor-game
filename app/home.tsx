@@ -1,7 +1,8 @@
 import { useRouter } from 'expo-router';
 import { HelpCircle, Play, Settings, X } from 'lucide-react-native';
 import { useState } from 'react';
-import { Modal, ScrollView, TouchableOpacity, View } from 'react-native';
+import { Image, Modal, ScrollView, TouchableOpacity, View } from 'react-native';
+import appIcon from '../assets/images/icon.png';
 import { Button } from '../components/Button';
 import ScreenWrapper from '../components/ScreenWrapper';
 import { AppText } from '../components/Typography';
@@ -26,6 +27,11 @@ export default function HomeScreen() {
             </TouchableOpacity>
 
             <View className="flex-1 justify-center items-center w-full">
+                <Image
+                    source={appIcon}
+                    style={{ width: 120, height: 120, borderRadius: 24, marginBottom: 24 }}
+                    resizeMode="contain"
+                />
                 <AppText variant="h1" className="text-6xl font-black mb-2 text-center">
                     {t.home.title}
                 </AppText>
