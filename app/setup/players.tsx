@@ -1,7 +1,8 @@
 import { useRouter } from 'expo-router';
 import { GripVertical, Plus, Trash2 } from 'lucide-react-native';
 import { useState } from 'react';
-import { KeyboardAvoidingView, Platform, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, KeyboardAvoidingView, Platform, TextInput, TouchableOpacity, View } from 'react-native';
+import appIcon from '../../assets/images/icon.png';
 import DraggableFlatList, { ScaleDecorator } from 'react-native-draggable-flatlist';
 import { Button } from '../../components/Button';
 import { CustomAlert } from '../../components/CustomAlert';
@@ -121,6 +122,12 @@ export default function AddPlayers() {
                 message={t.playerSetup.duplicateNameError}
                 onClose={() => setShowError(false)}
                 buttonText={"OK"}
+            />
+
+            {/* Subtle app branding */}
+            <Image
+                source={appIcon}
+                style={{ position: 'absolute', bottom: 8, right: 8, width: 20, height: 20, borderRadius: 4, opacity: 0.2 }}
             />
         </ScreenWrapper>
     );
