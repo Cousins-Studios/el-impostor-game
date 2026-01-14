@@ -39,19 +39,19 @@ export default function HomeScreen() {
                     {t.home.subtitle}
                 </AppText>
 
-                <View className="w-full gap-6 max-w-sm px-4">
+                <View className="w-full max-w-sm self-center">
                     <Button
                         title={t.home.play}
                         icon={<Play size={24} color="white" fill="white" />}
                         onPress={() => router.push('/setup/players')}
-                        className="w-full h-20 rounded-3xl"
+                        className="w-full max-w-sm h-20 rounded-3xl self-center"
                         textClassName="text-2xl"
                     />
 
-                    <TouchableOpacity
-                        onPress={() => setShowHowToPlay(true)}
-                        className="flex-row items-center justify-center py-2"
-                    >
+                <TouchableOpacity
+                    onPress={() => setShowHowToPlay(true)}
+                    className="flex-row items-center justify-center py-2 mt-6"
+                >
                         <HelpCircle size={22} color={isDark ? "#B6C2E2" : "#475467"} className="mr-2" />
                         <AppText className={`${isDark ? 'text-text-secondary' : 'text-[#475467]'} text-lg font-bold`}>{t.home.howToPlay}</AppText>
                     </TouchableOpacity>
