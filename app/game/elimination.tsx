@@ -11,7 +11,7 @@ import { useGameStore } from '../../store/gameStore';
 import { useSettingsStore } from '../../store/settingsStore';
 
 export default function EliminationScreen() {
-    const { players, eliminatedPlayerId, checkVictoryAfterElimination: checkVictory, resolveImpostorGuess, undoElimination } = useGameStore();
+    const { players, eliminatedPlayerId, checkVictoryAfterElimination: checkVictory, resolveImpostorGuess, undoElimination, nextRound } = useGameStore();
     const { appTheme } = useSettingsStore();
     const isDark = appTheme === 'dark';
     const router = useRouter();
@@ -33,6 +33,7 @@ export default function EliminationScreen() {
         if (victory) {
             router.replace('/game/victory');
         } else {
+            nextRound();
             router.replace('/game/round-start');
         }
     };
