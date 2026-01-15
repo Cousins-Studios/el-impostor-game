@@ -10,6 +10,7 @@ interface ButtonProps {
     textClassName?: string;
     icon?: React.ReactNode;
     iconPosition?: 'left' | 'right';
+    style?: any;
 }
 
 export function Button({
@@ -21,7 +22,8 @@ export function Button({
     className,
     textClassName,
     icon,
-    iconPosition = 'left'
+    iconPosition = 'left',
+    style
 }: ButtonProps) {
     let bg = "bg-primary-action";
     let text = "text-white";
@@ -55,6 +57,7 @@ export function Button({
             disabled={disabled || loading}
             activeOpacity={0.8}
             className={`h-12 px-6 rounded-2xl flex-row items-center justify-center shadow-sm ${bg} ${border} ${className || ''}`}
+            style={style}
         >
             {loading ? (
                 <ActivityIndicator color={variant === 'outline' ? "#E5533D" : "white"} />
