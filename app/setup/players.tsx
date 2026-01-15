@@ -71,51 +71,55 @@ export default function AddPlayers() {
                     </TouchableOpacity>
                 </View>
 
-                <DraggableFlatList
-                    data={players}
-                    keyExtractor={item => item.id}
-                    onDragEnd={({ data }) => reorderPlayers(data)}
-                    renderItem={({ item, drag, isActive }) => (
-                        <TouchableOpacity
-                            onLongPress={drag}
-                            disabled={isActive}
-                            activeOpacity={1}
-                            className={`flex-row items-center p-4 mb-3 rounded-xl border ${isActive
-                                ? (isDark ? 'bg-surface-soft border-primary-action shadow-lg' : 'bg-gray-100 border-primary-action shadow-md')
-                                : (isDark ? 'bg-surface-card border-surface-soft' : 'bg-white border-gray-100')
-                                }`}
-                            style={isActive ? { transform: [{ scale: 1 }] } : undefined}
-                        >
-                            <View className="mr-3 opacity-50 p-1">
-                                <GripVertical color={isDark ? "#B6C2E2" : "#98A2B3"} size={20} />
-                            </View>
-                            <AppText className={`flex-1 font-semibold ${isDark ? 'text-white' : 'text-[#101828]'}`}>{item.name}</AppText>
+                <View className="flex-1">
+                    <DraggableFlatList
+                        data={players}
+                        containerStyle={{ flex: 1 }}
+                        keyExtractor={item => item.id}
+                        onDragEnd={({ data }) => reorderPlayers(data)}
+                        renderItem={({ item, drag, isActive }) => (
                             <TouchableOpacity
-                                onPress={() => removePlayer(item.id)}
-                                className="p-2"
-                                activeOpacity={0.6}
+                                onLongPress={drag}
+                                disabled={isActive}
+                                activeOpacity={1}
+                                className={`flex-row items-center p-4 mb-3 rounded-xl border ${isActive
+                                    ? (isDark ? 'bg-surface-soft border-primary-action shadow-lg' : 'bg-gray-100 border-primary-action shadow-md')
+                                    : (isDark ? 'bg-surface-card border-surface-soft' : 'bg-white border-gray-100')
+                                    }`}
+                                style={isActive ? { transform: [{ scale: 1 }] } : undefined}
                             >
-                                <Trash2 color="#E5533D" size={20} />
+                                <View className="mr-3 opacity-50 p-1">
+                                    <GripVertical color={isDark ? "#B6C2E2" : "#98A2B3"} size={20} />
+                                </View>
+                                <AppText className={`flex-1 font-semibold ${isDark ? 'text-white' : 'text-[#101828]'}`}>{item.name}</AppText>
+                                <TouchableOpacity
+                                    onPress={() => removePlayer(item.id)}
+                                    className="p-2"
+                                    activeOpacity={0.6}
+                                >
+                                    <Trash2 color="#E5533D" size={20} />
+                                </TouchableOpacity>
                             </TouchableOpacity>
-                        </TouchableOpacity>
-                    )}
-                    contentContainerStyle={{ paddingBottom: 150 }}
-                    showsVerticalScrollIndicator={false}
-                />
-            </KeyboardAvoidingView>
+                        )}
+                        contentContainerStyle={{ paddingBottom: 20 }}
+                        showsVerticalScrollIndicator={false}
+                    />
+                </View>
 
-            <View className="absolute bottom-6 left-6 right-6">
-                <Button
-                    title={players.length < 3 ? `${t.common.next} (${players.length}/3)` : `${t.common.next} (${players.length})`}
-                    disabled={players.length < 3}
-                    onPress={() => router.push('/setup/config')}
-                />
-                {players.length < 3 && (
-                    <AppText variant="sub" className="text-center mt-2 text-primary-action font-semibold italic">
-                        {t.playerSetup.minPlayers}
-                    </AppText>
-                )}
-            </View>
+                {/* Footer Section */}
+                <View className="pt-4 pb-6">
+                    <Button
+                        title={players.length < 3 ? `${t.common.next} (${players.length}/3)` : `${t.common.next} (${players.length})`}
+                        disabled={players.length < 3}
+                        onPress={() => router.push('/setup/config')}
+                    />
+                    {players.length < 3 && (
+                        <AppText variant="sub" className="text-center mt-2 text-primary-action font-semibold italic">
+                            {t.playerSetup.minPlayers}
+                        </AppText>
+                    )}
+                </View>
+            </KeyboardAvoidingView>
 
             <CustomAlert
                 visible={showError}
