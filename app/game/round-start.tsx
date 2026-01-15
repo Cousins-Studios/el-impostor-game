@@ -70,7 +70,7 @@ export default function RoundStart() {
             {/* Bottom Button */}
             <View className="px-6 pb-10">
                 <Button
-                    title="Start Round"
+                    title={t.roundStart.startRound}
                     onPress={() => router.replace('/game/play')}
                     className="w-full h-18"
                     icon={<Play size={24} color="white" fill="white" />}

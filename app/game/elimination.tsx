@@ -103,7 +103,13 @@ export default function EliminationScreen() {
             <View className="w-full px-6 pb-6">
                 {(!isImpostor || guessResolved) && (
                     <Button
-                        title={t.elimination.seeResults}
+                        title={(() => {
+                            const impostorsAlive = players.filter(p => p.role === 'impostor' && p.isAlive).length;
+                            const civiliansAlive = players.filter(p => p.role === 'civilian' && p.isAlive).length;
+                            return (impostorsAlive === 0 || impostorsAlive >= civiliansAlive)
+                                ? t.elimination.seeResults
+                                : t.elimination.nextRound;
+                        })()}
                         onPress={handleNext}
                         className="w-full h-14"
                         textClassName="text-base"
