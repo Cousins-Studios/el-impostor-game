@@ -66,7 +66,27 @@ export const TRANSLATIONS = {
             },
             poolSize: "Cantidad de palabras",
             addWord: "Agregar palabra",
-            noWordsAdded: "No se han agregado palabras"
+            noWordsAdded: "No se han agregado palabras",
+            ideasButton: "Ideas para temas",
+            ideas: {
+                title: "Ideas para Temas",
+                playerNames: {
+                    title: "Nombres de Jugadores",
+                    desc: "¡Usa los nombres de quienes están jugando! La palabra secreta será uno de ustedes. ¿Podrán describirse sin decir el nombre?"
+                },
+                themeMix: {
+                    title: "Mezcla de Temas",
+                    desc: "Combina palabras de diferentes categorías: deportes, animales, películas... ¡Todo mezclado para mayor dificultad!"
+                },
+                knownPeople: {
+                    title: "Personas Conocidas",
+                    desc: "Amigos en común, familiares, profesores, compañeros de trabajo... ¡Personas fuera del juego que todos conocen!"
+                },
+                beCreative: {
+                    title: "¡Sean Creativos!",
+                    desc: "Chistes internos, lugares favoritos, recuerdos, palabras inventadas... ¡No hay límites! Piensen en algo divertido y único para su grupo."
+                }
+            }
         },
         reveal: {
             title: "Rol Secreto",
@@ -216,7 +236,27 @@ export const TRANSLATIONS = {
             },
             poolSize: "Pool Size",
             addWord: "Add word",
-            noWordsAdded: "No words added yet"
+            noWordsAdded: "No words added yet",
+            ideasButton: "Theme ideas",
+            ideas: {
+                title: "Theme Ideas",
+                playerNames: {
+                    title: "Player Names",
+                    desc: "Use the names of the players! The secret word will be one of you. Can you describe each other without saying the name?"
+                },
+                themeMix: {
+                    title: "Theme Mix",
+                    desc: "Mix words from different categories: sports, animals, movies... All mixed up for extra difficulty!"
+                },
+                knownPeople: {
+                    title: "People You Know",
+                    desc: "Mutual friends, family members, teachers, coworkers... People outside the game that everyone knows!"
+                },
+                beCreative: {
+                    title: "Be Creative!",
+                    desc: "Inside jokes, favorite places, memories, made-up words... No limits! Think of something fun and unique for your group."
+                }
+            }
         },
         reveal: {
             title: "Secret Role",
@@ -366,7 +406,27 @@ export const TRANSLATIONS = {
             },
             poolSize: "Mots disponibles",
             addWord: "Ajouter un mot",
-            noWordsAdded: "Aucun mot ajouté"
+            noWordsAdded: "Aucun mot ajouté",
+            ideasButton: "Idées de thèmes",
+            ideas: {
+                title: "Idées de Thèmes",
+                playerNames: {
+                    title: "Noms des Joueurs",
+                    desc: "Utilisez les noms des joueurs ! Le mot secret sera l'un d'entre vous. Pourrez-vous vous décrire sans dire le nom ?"
+                },
+                themeMix: {
+                    title: "Mélange de Thèmes",
+                    desc: "Combinez des mots de différentes catégories : sports, animaux, films... Tout mélangé pour plus de difficulté !"
+                },
+                knownPeople: {
+                    title: "Personnes Connues",
+                    desc: "Amis communs, famille, professeurs, collègues... Des personnes hors du jeu que tout le monde connaît !"
+                },
+                beCreative: {
+                    title: "Soyez Créatifs !",
+                    desc: "Blagues internes, lieux préférés, souvenirs, mots inventés... Pas de limites ! Pensez à quelque chose d'amusant et unique pour votre groupe."
+                }
+            }
         },
         reveal: {
             title: "Rôle Secret",
@@ -516,7 +576,27 @@ export const TRANSLATIONS = {
             },
             poolSize: "Wortanzahl",
             addWord: "Wort hinzufügen",
-            noWordsAdded: "Keine Wörter hinzugefügt"
+            noWordsAdded: "Keine Wörter hinzugefügt",
+            ideasButton: "Themen-Ideen",
+            ideas: {
+                title: "Themen-Ideen",
+                playerNames: {
+                    title: "Spielernamen",
+                    desc: "Verwendet die Namen der Spieler! Das geheime Wort wird einer von euch sein. Könnt ihr euch beschreiben, ohne den Namen zu sagen?"
+                },
+                themeMix: {
+                    title: "Themen-Mix",
+                    desc: "Mische Wörter aus verschiedenen Kategorien: Sport, Tiere, Filme... Alles durcheinander für mehr Schwierigkeit!"
+                },
+                knownPeople: {
+                    title: "Bekannte Personen",
+                    desc: "Gemeinsame Freunde, Familie, Lehrer, Kollegen... Personen außerhalb des Spiels, die alle kennen!"
+                },
+                beCreative: {
+                    title: "Seid Kreativ!",
+                    desc: "Insider-Witze, Lieblingsorte, Erinnerungen, erfundene Wörter... Keine Grenzen! Denkt an etwas Lustiges und Einzigartiges für eure Gruppe."
+                }
+            }
         },
         reveal: {
             title: "Geheime Rolle",
@@ -666,7 +746,27 @@ export const TRANSLATIONS = {
             },
             poolSize: "Numero parole",
             addWord: "Aggiungi parola",
-            noWordsAdded: "Nessuna parola aggiunta"
+            noWordsAdded: "Nessuna parola aggiunta",
+            ideasButton: "Idee per temi",
+            ideas: {
+                title: "Idee per Temi",
+                playerNames: {
+                    title: "Nomi dei Giocatori",
+                    desc: "Usa i nomi dei giocatori! La parola segreta sarà uno di voi. Riuscirete a descrivervi senza dire il nome?"
+                },
+                themeMix: {
+                    title: "Mix di Temi",
+                    desc: "Mescola parole di diverse categorie: sport, animali, film... Tutto mescolato per maggiore difficoltà!"
+                },
+                knownPeople: {
+                    title: "Persone Conosciute",
+                    desc: "Amici in comune, familiari, professori, colleghi... Persone fuori dal gioco che tutti conoscono!"
+                },
+                beCreative: {
+                    title: "Siate Creativi!",
+                    desc: "Battute interne, luoghi preferiti, ricordi, parole inventate... Nessun limite! Pensate a qualcosa di divertente e unico per il vostro gruppo."
+                }
+            }
         },
         reveal: {
             title: "Ruolo Segreto",

@@ -1,8 +1,8 @@
 import { useRouter } from 'expo-router';
-import { ArrowRight, Check, Film, Globe, PawPrint, PenTool, Pizza, Plus, Trash2, Trophy } from 'lucide-react-native';
+import { ArrowRight, Check, Film, Globe, Heart, Lightbulb, PawPrint, PenTool, Pizza, Plus, Shuffle, Sparkles, Trash2, Trophy, Users, X } from 'lucide-react-native';
 import { useEffect, useRef, useState } from 'react';
-import { FlatList, TextInput, TouchableOpacity, View } from 'react-native';
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { Dimensions, FlatList, Modal, TextInput, TouchableOpacity, View } from 'react-native';
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withRepeat, withSequence, withTiming } from 'react-native-reanimated';
 import { Defs, LinearGradient, Rect, Stop, Svg } from 'react-native-svg';
 import { Button } from '../../components/Button';
 import ScreenWrapper from '../../components/ScreenWrapper';
@@ -27,6 +27,7 @@ export default function ThemeSelection() {
     const { appTheme } = useSettingsStore();
     const isDark = appTheme === 'dark';
     const [customInput, setCustomInput] = useState('');
+    const [showIdeas, setShowIdeas] = useState(false);
     const scrollOffset = useSharedValue(0);
     const contentHeight = useSharedValue(0);
     const layoutHeight = useSharedValue(0);
@@ -46,6 +47,32 @@ export default function ThemeSelection() {
         };
     });
     const flatListRef = useRef<FlatList>(null);
+
+    // Ripple animation for ideas button
+    const rippleScale = useSharedValue(1);
+    const rippleOpacity = useSharedValue(0.2);
+    useEffect(() => {
+        rippleScale.value = withRepeat(
+            withSequence(
+                withTiming(1, { duration: 0 }),
+                withTiming(1.4, { duration: 1400, easing: Easing.out(Easing.ease) })
+            ),
+            -1,
+            false
+        );
+        rippleOpacity.value = withRepeat(
+            withSequence(
+                withTiming(0.18, { duration: 0 }),
+                withTiming(0, { duration: 1400, easing: Easing.out(Easing.ease) })
+            ),
+            -1,
+            false
+        );
+    }, []);
+    const rippleStyle = useAnimatedStyle(() => ({
+        transform: [{ scale: rippleScale.value }],
+        opacity: rippleOpacity.value
+    }));
 
     const predefinedThemes = PREDEFINED_THEMES ?? {};
     const themes = [...Object.keys(predefinedThemes), 'Custom'];
@@ -71,7 +98,20 @@ export default function ThemeSelection() {
 
     const renderCustomEditor = () => (
         <View className={`mt-4 ${isDark ? 'bg-surface-card' : 'bg-white'} p-6 rounded-[32px] border ${isDark ? 'border-surface-soft' : 'border-gray-100'}`}>
-            <AppText variant="label" className="mb-4 text-accent">{t.themeSelection.categories.Custom}</AppText>
+            <View className="flex-row justify-between items-center mb-4">
+                <AppText variant="label" className="text-accent">{t.themeSelection.categories.Custom}</AppText>
+                <TouchableOpacity onPress={() => setShowIdeas(true)} activeOpacity={0.7}>
+                    <View className="relative items-center justify-center">
+                        <Animated.View
+                            style={rippleStyle}
+                            className={`absolute w-9 h-9 rounded-full ${isDark ? 'bg-yellow-500' : 'bg-yellow-400'}`}
+                        />
+                        <View className={`p-2 rounded-full ${isDark ? 'bg-yellow-500/15' : 'bg-yellow-100'}`}>
+                            <Lightbulb size={18} color={isDark ? "#FBBF24" : "#D97706"} />
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            </View>
             <View className="flex-row gap-2 mb-6">
                 <TextInput
                     className={`flex-1 h-14 ${isDark ? 'bg-surface-soft border-transparent text-white' : 'bg-gray-100 border-transparent text-[#101828]'} px-4 rounded-2xl font-sans text-lg`}
@@ -206,6 +246,138 @@ export default function ThemeSelection() {
                     iconPosition="right"
                 />
             </View>
+
+            {/* Custom Theme Ideas Modal */}
+            <Modal
+                visible={showIdeas}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setShowIdeas(false)}
+            >
+                <View className="flex-1 justify-end bg-black/60">
+                    <TouchableOpacity
+                        className="flex-1"
+                        activeOpacity={1}
+                        onPress={() => setShowIdeas(false)}
+                    />
+                    <View className={`${isDark ? 'bg-[#101827]' : 'bg-white'} rounded-t-[32px] pt-8 pb-10 shadow-2xl h-[75%]`}>
+                        {/* Header */}
+                        <View className="flex-row justify-between items-center px-8 mb-4">
+                            <View>
+                                <AppText className="text-yellow-500 font-bold text-sm tracking-widest uppercase mb-1">IDEAS</AppText>
+                                <AppText variant="h1" className="text-3xl font-black">{t.themeSelection.ideas.title}</AppText>
+                            </View>
+                            <TouchableOpacity
+                                onPress={() => setShowIdeas(false)}
+                                className={`w-12 h-12 rounded-full items-center justify-center ${isDark ? 'bg-surface-soft' : 'bg-gray-100'}`}
+                            >
+                                <X size={24} color={isDark ? "#B6C2E2" : "#475467"} strokeWidth={2.5} />
+                            </TouchableOpacity>
+                        </View>
+
+                        <CustomThemeIdeasContent t={t} isDark={isDark} onClose={() => setShowIdeas(false)} />
+                    </View>
+                </View>
+            </Modal>
         </ScreenWrapper>
+    );
+}
+
+// Slideshow component for custom theme ideas
+function CustomThemeIdeasContent({ t, isDark, onClose }: { t: any, isDark: boolean, onClose: () => void }) {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const { width } = Dimensions.get('window');
+
+    const ideas = [
+        {
+            icon: <Users size={56} color={isDark ? "#4CC9F0" : "#0EA5E9"} strokeWidth={2} />,
+            title: t.themeSelection.ideas.playerNames.title,
+            desc: t.themeSelection.ideas.playerNames.desc,
+            color: isDark ? "#4CC9F0" : "#0EA5E9"
+        },
+        {
+            icon: <Shuffle size={56} color={isDark ? "#A855F7" : "#9333EA"} strokeWidth={2} />,
+            title: t.themeSelection.ideas.themeMix.title,
+            desc: t.themeSelection.ideas.themeMix.desc,
+            color: isDark ? "#A855F7" : "#9333EA"
+        },
+        {
+            icon: <Heart size={56} color={isDark ? "#F472B6" : "#EC4899"} strokeWidth={2} />,
+            title: t.themeSelection.ideas.knownPeople.title,
+            desc: t.themeSelection.ideas.knownPeople.desc,
+            color: isDark ? "#F472B6" : "#EC4899"
+        },
+        {
+            icon: <Sparkles size={56} color={isDark ? "#FBBF24" : "#F59E0B"} strokeWidth={2} />,
+            title: t.themeSelection.ideas.beCreative.title,
+            desc: t.themeSelection.ideas.beCreative.desc,
+            color: isDark ? "#FBBF24" : "#F59E0B",
+            isLast: true
+        }
+    ];
+
+    const handleScroll = (event: any) => {
+        const contentOffsetX = event.nativeEvent.contentOffset.x;
+        const index = Math.round(contentOffsetX / width);
+        setCurrentIndex(index);
+    };
+
+    return (
+        <View className="flex-1">
+            <FlatList
+                data={ideas}
+                horizontal
+                pagingEnabled
+                showsHorizontalScrollIndicator={false}
+                onScroll={handleScroll}
+                scrollEventThrottle={16}
+                keyExtractor={(_, i) => `idea-${i}`}
+                renderItem={({ item }) => (
+                    <View style={{ width }} className="items-center justify-center px-8">
+                        <View className="items-center w-full">
+                            {/* Icon */}
+                            <View className="mb-12">
+                                {item.icon}
+                            </View>
+
+                            {/* Title */}
+                            <AppText className={`text-3xl font-black text-center mb-6 leading-tight ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                                {item.title}
+                            </AppText>
+
+                            {/* Description */}
+                            <AppText className={`text-xl text-center leading-8 font-medium opacity-80 ${isDark ? 'text-blue-100' : 'text-gray-600'}`}>
+                                {item.desc}
+                            </AppText>
+
+                            {/* Action Button (Only on last slide) */}
+                            {item.isLast && (
+                                <View className="w-full mt-8">
+                                    <TouchableOpacity
+                                        onPress={onClose}
+                                        className="w-full py-4 rounded-full bg-primary-action items-center shadow-lg shadow-primary-action/30"
+                                    >
+                                        <AppText className="text-white font-bold text-lg uppercase tracking-widest">
+                                            {t.appGuide.finish}
+                                        </AppText>
+                                    </TouchableOpacity>
+                                </View>
+                            )}
+                        </View>
+                    </View>
+                )}
+            />
+
+            {/* Pagination Dots */}
+            <View className="flex-row justify-center items-center space-x-3 pb-8">
+                {ideas.map((_, i) => (
+                    <View
+                        key={i}
+                        className={`h-2 rounded-full transition-all duration-300 ${i === currentIndex ? 'w-8' : 'w-2'}`}
+                        style={{ backgroundColor: i === currentIndex ? (isDark ? '#FBBF24' : '#F59E0B') : (isDark ? '#2A3755' : '#D1D5DB') }}
+                    />
+                ))}
+            </View>
+        </View>
     );
 }
