@@ -45,7 +45,7 @@ export default function HomeScreen() {
                         title={t.home.play}
                         icon={<Play size={24} color="white" fill="white" />}
                         onPress={() => router.push('/setup/players')}
-                        className="w-full max-w-sm h-20 rounded-3xl self-center"
+                        className="w-full max-w-sm h-16 rounded-3xl self-center"
                         textClassName="text-2xl"
                     />
 
@@ -251,7 +251,7 @@ function AppGuideContent({ t, isDark, onClose }: { t: any, isDark: boolean, onCl
 
                             {/* Action Button (Only on last slide) */}
                             {item.isLast && (
-                                <View className="w-full mt-12">
+                                <View className="w-full mt-4">
                                     <TouchableOpacity
                                         onPress={onClose}
                                         className="w-full py-4 rounded-full bg-primary-action items-center shadow-lg shadow-primary-action/30"
