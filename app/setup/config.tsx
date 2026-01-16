@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import { ArrowRight, HelpCircle, Minus, Plus, X } from 'lucide-react-native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Image, Modal, ScrollView, TouchableOpacity, View } from 'react-native';
 import appIcon from '../../assets/images/icon.png';
 import { Button } from '../../components/Button';
@@ -17,18 +17,45 @@ export default function GameConfig() {
     const router = useRouter();
     const t = useI18n();
     const [showHelp, setShowHelp] = useState(false);
+    const [showModeError, setShowModeError] = useState(false);
 
-    const maxImpostors = Math.max(1, Math.floor(players.length / 2));
+    useEffect(() => {
+        if (settings.impostorMode === 'fixed') {
+            updateSettings({ fixedImpostorCount: 1 });
+        }
+    }, []);
+
+    const isProb = settings.impostorMode === 'probability';
+    const currentCount = isProb ? settings.probabilityImpostorCount : settings.fixedImpostorCount;
+    const minImpostors = isProb ? 2 : 1;
+    const maxImpostors = Math.max(minImpostors, Math.floor(players.length / 2));
+
+    const handleModeChange = (mode: 'fixed' | 'probability') => {
+        if (mode === 'probability' && players.length <= 3) {
+            setShowModeError(true);
+            return;
+        }
+        setShowModeError(false);
+        updateSettings({ impostorMode: mode });
+    };
 
     const incrementCount = () => {
-        if (settings.impostorCount < maxImpostors) {
-            updateSettings({ impostorCount: settings.impostorCount + 1 });
+        if (currentCount < maxImpostors) {
+            if (isProb) {
+                updateSettings({ probabilityImpostorCount: currentCount + 1 });
+            } else {
+                updateSettings({ fixedImpostorCount: currentCount + 1 });
+            }
         }
     };
 
     const decrementCount = () => {
-        if (settings.impostorCount > 1) {
-            updateSettings({ impostorCount: settings.impostorCount - 1 });
+        if (currentCount > minImpostors) {
+            if (isProb) {
+                updateSettings({ probabilityImpostorCount: currentCount - 1 });
+            } else {
+                updateSettings({ fixedImpostorCount: currentCount - 1 });
+            }
         }
     };
 
@@ -44,14 +71,15 @@ export default function GameConfig() {
                 <View className="mb-4">
                     <AppText className={`text-lg font-bold mb-3 ${isDark ? 'text-white' : 'text-[#101828]'}`}>{t.gameConfig.impostors}</AppText>
 
-                    <View className={`flex-row mb-4 ${isDark ? 'bg-surface-soft' : 'bg-gray-200'} p-1 rounded-2xl`}>
+                    <View className={`flex-row mb-2 ${isDark ? 'bg-surface-soft' : 'bg-gray-200'} p-1 rounded-2xl`}>
                         {['fixed', 'probability'].map((mode) => {
                             const isSelected = settings.impostorMode === mode;
+                            const isDisabled = mode === 'probability' && players.length <= 3;
                             return (
                                 <TouchableOpacity
                                     key={mode}
-                                    onPress={() => updateSettings({ impostorMode: mode as any })}
-                                    className={`flex-1 items-center py-2.5 rounded-xl ${isSelected ? (isDark ? 'bg-[#2A3755] shadow-sm' : 'bg-white shadow-sm') : ''}`}
+                                    onPress={() => handleModeChange(mode as any)}
+                                    className={`flex-1 items-center py-2.5 rounded-xl ${isSelected ? (isDark ? 'bg-[#2A3755] shadow-sm' : 'bg-white shadow-sm') : ''} ${isDisabled ? 'opacity-40' : 'opacity-100'}`}
                                 >
                                     <AppText className={`text-base font-bold ${isSelected ? (isDark ? 'text-white' : 'text-[#101828]') : (isDark ? 'text-[#7C8AA5]' : 'text-gray-500')}`}>
                                         {mode === 'fixed' ? t.gameConfig.modeFixed : t.gameConfig.modeProb}
@@ -61,41 +89,69 @@ export default function GameConfig() {
                         })}
                     </View>
 
-                    <View className={`${isDark ? 'bg-surface-card' : 'bg-white shadow-sm'} p-5 rounded-[28px] border ${isDark ? 'border-transparent' : 'border-gray-100'}`}>
-                        {settings.impostorMode === 'fixed' ? (
-                            <>
-                                <AppText variant="label" className="text-xs uppercase tracking-widest mb-3 opacity-70">{t.gameConfig.count}</AppText>
-                                <View className={`flex-row items-center justify-between ${isDark ? 'bg-[#121A2B]' : 'bg-gray-50'} p-2 rounded-2xl mb-3`}>
-                                    <TouchableOpacity
-                                        onPress={decrementCount}
-                                        className={`${isDark ? 'bg-[#1F2A44]' : 'bg-gray-200'} w-11 h-11 rounded-xl items-center justify-center`}
-                                    >
-                                        <Minus color={isDark ? "white" : "#101828"} size={18} strokeWidth={3} />
-                                    </TouchableOpacity>
-                                    <AppText className="text-3xl font-black">{settings.impostorCount}</AppText>
-                                    <TouchableOpacity
-                                        onPress={incrementCount}
-                                        className="bg-primary-action w-11 h-11 rounded-xl items-center justify-center"
-                                    >
-                                        <Plus color="white" size={18} strokeWidth={3} />
-                                    </TouchableOpacity>
-                                </View>
-                            </>
-                        ) : (
-                            <>
-                                <AppText variant="label" className="text-[10px] uppercase tracking-widest mb-1 opacity-70">{t.gameConfig.prob}</AppText>
-                                <AppText className="text-xl font-black mb-3">{settings.impostorProbability}%</AppText>
+                    {showModeError && (
+                        <View className="mb-4 px-2">
+                            <AppText className="text-xs font-semibold text-primary-action italic">
+                                * {t.gameConfig.modeProbLimit}
+                            </AppText>
+                        </View>
+                    )}
 
-                                <View className="flex-row gap-2 mb-5">
+                    <View className={`${isDark ? 'bg-surface-card' : 'bg-white shadow-sm'} p-6 rounded-[32px] border ${isDark ? 'border-transparent' : 'border-gray-100'}`}>
+                        {/* Count Selector - Always visible because it defines the (max) impostors in both modes */}
+                        <AppText variant="label" className="text-[10px] uppercase tracking-[2px] mb-4 opacity-70 font-bold">
+                            {t.gameConfig.count}
+                        </AppText>
+
+                        <View className={`flex-row items-center justify-between ${isDark ? 'bg-[#121A2B]' : 'bg-gray-50'} p-2.5 rounded-2xl ${settings.impostorMode === 'probability' ? 'mb-6' : 'mb-0'}`}>
+                            <TouchableOpacity
+                                onPress={decrementCount}
+                                className={`${isDark ? 'bg-[#1F2A44]' : 'bg-gray-200'} w-12 h-12 rounded-xl items-center justify-center ${currentCount <= minImpostors ? 'opacity-30' : 'opacity-100'}`}
+                                activeOpacity={currentCount <= minImpostors ? 1 : 0.7}
+                            >
+                                <Minus color={isDark ? "white" : "#101828"} size={20} strokeWidth={3} />
+                            </TouchableOpacity>
+
+                            <View className="items-center">
+                                <AppText className="text-4xl font-black">{currentCount}</AppText>
+                            </View>
+
+                            <TouchableOpacity
+                                onPress={incrementCount}
+                                className={`bg-primary-action w-12 h-12 rounded-xl items-center justify-center ${currentCount >= maxImpostors ? 'opacity-30' : 'opacity-100'}`}
+                                activeOpacity={currentCount >= maxImpostors ? 1 : 0.7}
+                            >
+                                <Plus color="white" size={20} strokeWidth={3} />
+                            </TouchableOpacity>
+                        </View>
+
+                        {/* Probability Map - Only visible in probability mode */}
+                        {settings.impostorMode === 'probability' && (
+                            <>
+                                <View className={`h-[1px] ${isDark ? 'bg-white/5' : 'bg-gray-100'} mb-6`} />
+
+                                <View className="flex-row justify-between items-end mb-4">
+                                    <AppText variant="label" className="text-[10px] uppercase tracking-[2px] opacity-70 font-bold">
+                                        {t.gameConfig.prob}
+                                    </AppText>
+                                    <AppText className="text-2xl font-black text-primary-action">{settings.impostorProbability}%</AppText>
+                                </View>
+
+                                <View className="flex-row gap-2">
                                     {[25, 50, 75].map((prob) => {
                                         const isSelected = settings.impostorProbability === prob;
                                         return (
                                             <TouchableOpacity
                                                 key={prob}
                                                 onPress={() => updateSettings({ impostorProbability: prob })}
-                                                className={`flex-1 py-2 rounded-xl items-center border ${isSelected ? 'bg-primary-action border-primary-action' : (isDark ? 'bg-[#1F2A44] border-transparent' : 'bg-gray-100 border-transparent')}`}
+                                                className={`flex-1 py-3.5 rounded-2xl items-center border-2 ${isSelected
+                                                    ? 'bg-primary-action border-primary-action'
+                                                    : (isDark ? 'bg-surface-soft border-transparent' : 'bg-gray-100 border-transparent')}`}
+                                                activeOpacity={0.8}
                                             >
-                                                <AppText className={`text-sm font-bold ${isSelected ? 'text-white' : (isDark ? 'text-[#7C8AA5]' : 'text-gray-500')}`}>{prob}%</AppText>
+                                                <AppText className={`text-base font-bold ${isSelected ? 'text-white' : (isDark ? 'text-[#7C8AA5]' : 'text-gray-500')}`}>
+                                                    {prob}%
+                                                </AppText>
                                             </TouchableOpacity>
                                         );
                                     })}
