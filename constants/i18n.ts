@@ -10,7 +10,7 @@ export const TRANSLATIONS = {
             next: "Siguiente",
             loading: "Cargando...",
             ready: "¿Listo?",
-            passPhoneFirst: "Pasa el teléfono al primer jugador ahora."
+            passPhoneFirst: "Presiona el botón \"Comenzar Juego\" y pasa el teléfono al primer jugador."
         },
         home: {
             title: "El Impostor",
@@ -47,10 +47,11 @@ export const TRANSLATIONS = {
             prob: "Probabilidad",
             continue: "Continuar",
             modeExplained: "¿Cómo funcionan los modos?",
+            modeProbLimit: "El modo Probabilidad requiere al menos 4 jugadores.",
             helpFixedTitle: "Modo Fijo",
             helpFixedDesc: "¡Sin sorpresas! El número de impostores será exactamente el que tú elijas. Si configuras 1 impostor, habrá 1. Si configuras 2, habrá 2.\n\nEs el modo ideal para partidas equilibradas donde todos saben contra cuántos enemigos están luchando.",
             helpProbTitle: "Modo Probabilidad",
-            helpProbDesc: "¡Pura incertidumbre! Aquí cada jugador tiene una probabilidad individual (ej. 50%) de ser impostor.\n\nEsto significa que el número total de impostores es un misterio. ¡Podría no haber ninguno, haber solo uno, o incluso que todos sean impostores! Nadie sabe a ciencia cierta cuántos enemigos hay, lo que añade mucha más tensión al juego."
+            helpProbDesc: "¡Pura incertidumbre!\n\nEn este modo siempre habrá al menos un impostor, pero existe la posibilidad de que aparezcan más.\n\nAntes de iniciar la partida se define una cantidad posible de impostores extra y una probabilidad.\n\nSi la suerte acompaña, la partida tendrá la cantidad de impostores que se definio. Si no, el juego continuará con solo 1.\n\nNadie sabe si habrá uno o más enemigos acechando, y esa duda constante aumenta la tensión y la desconfianza entre los jugadores."
         },
         themeSelection: {
             title: "Temas",
@@ -63,7 +64,9 @@ export const TRANSLATIONS = {
                 Countries: "Países",
                 Custom: "Personalizado"
             },
-            poolSize: "Cantidad de palabras"
+            poolSize: "Cantidad de palabras",
+            addWord: "Agregar palabra",
+            noWordsAdded: "No se han agregado palabras"
         },
         reveal: {
             title: "Rol Secreto",
@@ -131,7 +134,7 @@ export const TRANSLATIONS = {
             step3Title: "3. Eliminen",
             step3Desc: "Después de discutir, voten para eliminar a quien crean que es el Impostor.",
             step4Title: "4. Ganen",
-            step4Desc: "Civiles ganan si eliminan al Impostor. Impostor gana si sobrevive o adivina la palabra."
+            step4Desc: "Los civiles ganan al eliminar a todos los impostores. Los impostores ganan si igualan o superan en número a los civiles, o si adivinan la palabra."
         },
         appGuide: {
             title: "Guía de la App",
@@ -157,7 +160,7 @@ export const TRANSLATIONS = {
             next: "Next",
             loading: "Loading...",
             ready: "Ready?",
-            passPhoneFirst: "Pass the phone to the first player now."
+            passPhoneFirst: "Press the 'Start Game' button and pass the phone to the first player."
         },
         home: {
             title: "The Impostor",
@@ -194,10 +197,11 @@ export const TRANSLATIONS = {
             prob: "Probability",
             continue: "Continue",
             modeExplained: "How do modes work?",
+            modeProbLimit: "Probability mode requires at least 4 players.",
             helpFixedTitle: "Fixed Mode",
             helpFixedDesc: "No surprises! The number of impostors will be exactly what you choose. If you set 1 impostor, there will be 1. If you set 2, there will be 2.\n\nThis is the ideal mode for balanced games where everyone knows how many enemies they are up against.",
             helpProbTitle: "Probability Mode",
-            helpProbDesc: "Pure uncertainty! Here, each player has an individual chance (e.g., 50%) of being an impostor.\n\nThis means the total number of impostors is a mystery. There could be none, just one, or even everyone could be an impostor! No one knows for sure how many enemies there are, which adds much more tension to the game."
+            helpProbDesc: "Pure uncertainty!\n\nIn this mode, there will always be at least one impostor, but there's a chance for more to appear.\n\nBefore starting the game, you define the maximum possible number of additional impostors and the probability of them appearing.\n\nIf luck is on your side, the game will have the number of impostors defined. If not, it will continue with just 1.\n\nNo one knows for sure if there will be one or more enemies lurking, and that constant doubt increases the tension and distrust among players."
         },
         themeSelection: {
             title: "Themes",
@@ -210,7 +214,9 @@ export const TRANSLATIONS = {
                 Countries: "Countries",
                 Custom: "Custom"
             },
-            poolSize: "Pool Size"
+            poolSize: "Pool Size",
+            addWord: "Add word",
+            noWordsAdded: "No words added yet"
         },
         reveal: {
             title: "Secret Role",
@@ -278,7 +284,7 @@ export const TRANSLATIONS = {
             step3Title: "3. Eliminate",
             step3Desc: "After discussion, vote to eliminate who you think is the Impostor.",
             step4Title: "4. Win",
-            step4Desc: "Civilians win if they eliminate the Impostor. Impostor wins if they survive or guess the secret word."
+            step4Desc: "Civilians win if they eliminate all impostors. Impostors win if they equal or outnumber civilians, or if they guess the secret word."
         },
         appGuide: {
             title: "App Guide",
@@ -304,7 +310,7 @@ export const TRANSLATIONS = {
             next: "Suivant",
             loading: "Chargement...",
             ready: "Prêt ?",
-            passPhoneFirst: "Passez le téléphone au premier joueur."
+            passPhoneFirst: "Appuyez sur le bouton 'Commencer Jeu' et passez le téléphone au premier joueur."
         },
         home: {
             title: "L'Imposteur",
@@ -341,10 +347,11 @@ export const TRANSLATIONS = {
             prob: "Probabilité",
             continue: "Continuer",
             modeExplained: "Comment fonctionnent les modes ?",
+            modeProbLimit: "Le mode Probabilité nécessite au moins 4 joueurs.",
             helpFixedTitle: "Mode Fixe",
             helpFixedDesc: "Pas de surprises ! Le nombre d'imposteurs sera exactement celui que vous choisirez. Si vous réglez 1 imposteur, il y en aura 1. Si vous en réglez 2, il y en aura 2.\n\nC'est le mode idéal pour des parties équilibrées où tout le monde sait contre combien d'ennemis il se bat.",
             helpProbTitle: "Mode Probabilité",
-            helpProbDesc: "Incertitude totale ! Ici, chaque joueur a une chance individuelle (ex : 50 %) d'être un imposteur.\n\nCela signifie que le nombre total d'imposteurs est un mystère. Il pourrait n'y en avoir aucun, un seul, ou même tout le monde pourrait être un imposteur ! Personne ne sait avec certitude combien il y a d'ennemis, ce qui ajoute beaucoup plus de tension au jeu."
+            helpProbDesc: "Pura incertidumbre !\n\nDans ce mode, il y aura toujours au moins un imposteur, mais il y a une possibilité que d'autres apparaissent.\n\nAvant de commencer la partie, vous définissez le nombre maximum possible d'imposteurs supplémentaires et la probabilité qu'ils apparaissent.\n\nSi la chance vous sourit, la partie aura la quantité d'imposteurs définie. Sinon, elle continuera avec seulement 1.\n\nPersonne ne sait avec certitude s'il y aura un ou plusieurs ennemis cachés, et ce doute constant augmente la tension et la méfiance entre les joueurs."
         },
         themeSelection: {
             title: "Thèmes",
@@ -357,7 +364,9 @@ export const TRANSLATIONS = {
                 Countries: "Pays",
                 Custom: "Personnalisé"
             },
-            poolSize: "Mots disponibles"
+            poolSize: "Mots disponibles",
+            addWord: "Ajouter un mot",
+            noWordsAdded: "Aucun mot ajouté"
         },
         reveal: {
             title: "Rôle Secret",
@@ -425,7 +434,7 @@ export const TRANSLATIONS = {
             step3Title: "3. Éliminez",
             step3Desc: "Après discussion, votez pour éliminer l'imposteur suspecté.",
             step4Title: "4. Victoire",
-            step4Desc: "Les civils gagnent s'ils trouvent l'imposteur. L'imposteur gagne s'il survit ou devine le mot."
+            step4Desc: "Les civils gagnent s'ils éliminent tous les imposteurs. Les imposteurs gagnent s'ils égalent ou dépassent en nombre les civils, ou s'ils devinent le mot."
         },
         appGuide: {
             title: "Guide de l'App",
@@ -451,7 +460,7 @@ export const TRANSLATIONS = {
             next: "Weiter",
             loading: "Laden...",
             ready: "Bereit?",
-            passPhoneFirst: "Gib das Handy dem ersten Spieler."
+            passPhoneFirst: "Drücke den 'Spiel Starten' Knopf und gib das Handy dem ersten Spieler."
         },
         home: {
             title: "Der Impostor",
@@ -488,10 +497,11 @@ export const TRANSLATIONS = {
             prob: "Wahrsch.",
             continue: "Weiter",
             modeExplained: "Wie funktionieren die Modi?",
+            modeProbLimit: "Der Wahrscheinlichkeitsmodus benötigt mindestens 4 Spieler.",
             helpFixedTitle: "Fester Modus",
             helpFixedDesc: "Keine Überraschungen! Die Anzahl der Verräter entspricht genau deiner Auswahl. Wenn du 1 Verräter einstellst, gibt es 1. Wenn du 2 einstellst, gibt es 2.\n\nDies ist der ideale Modus für ausgeglichene Spiele, in denen jeder weiß, gegen wie viele Feinde er antritt.",
             helpProbTitle: "Wahrscheinlichkeitsmodus",
-            helpProbDesc: "Pure Ungewissheit! Hier hat jeder Spieler eine individuelle Chance (z. B. 50 %), ein Verräter zu sein.\n\nDas bedeutet, die Gesamtzahl der Verräter ist ein Geheimnis. Es könnten keine sein, nur einer oder sogar alle könnten Verräter sein! Niemand weiß sicher, wie viele Feinde es gibt, was das Spiel viel spannender macht."
+            helpProbDesc: "Pura incertidumbre!\n\nIn diesem Modus gibt es immer mindestens einen Verräter, aber es besteht die Möglichkeit, dass weitere hinzukommen.\n\nVor Beginn des Spiels legen Sie die maximal mögliche Anzahl zusätzlicher Verräter und die Wahrscheinlichkeit ihres Erscheinens fest.\n\nWenn das Glück auf Ihrer Seite ist, hat das Spiel die Anzahl der Verräter, die Sie festgelegt haben. Wenn nicht, geht es mit nur 1 weiter.\n\nNiemand weiß genau, ob ein oder mehrere Feinde lauern, und dieser ständige Zweifel erhöht die Spannung und das Misstrauen zwischen den Spielern."
         },
         themeSelection: {
             title: "Themen",
@@ -504,7 +514,9 @@ export const TRANSLATIONS = {
                 Countries: "Länder",
                 Custom: "Benutzerdefiniert"
             },
-            poolSize: "Wortanzahl"
+            poolSize: "Wortanzahl",
+            addWord: "Wort hinzufügen",
+            noWordsAdded: "Keine Wörter hinzugefügt"
         },
         reveal: {
             title: "Geheime Rolle",
@@ -572,7 +584,7 @@ export const TRANSLATIONS = {
             step3Title: "3. Eliminieren",
             step3Desc: "Nach der Diskussion wird abgestimmt, wer rausfliegt.",
             step4Title: "4. Gewinnen",
-            step4Desc: "Zivilisten siegen, wenn der Verräter fliegt. Verräter siegt, wenn er überlebt oder das Wort errät."
+            step4Desc: "Die Zivilisten gewinnen, wenn sie alle Verräter eliminieren. Die Verräter gewinnen, wenn sie gleich viele oder mehr Zivilisten sind oder wenn sie das Wort erraten."
         },
         appGuide: {
             title: "App-Handbuch",
@@ -598,7 +610,7 @@ export const TRANSLATIONS = {
             next: "Avanti",
             loading: "Caricamento...",
             ready: "Pronto?",
-            passPhoneFirst: "Passa il telefono al primo giocatore."
+            passPhoneFirst: "Premi il pulsante 'Inizia Gioco' e passa il telefono al primo giocatore."
         },
         home: {
             title: "L'Impostore",
@@ -635,10 +647,11 @@ export const TRANSLATIONS = {
             prob: "Probabilità",
             continue: "Continua",
             modeExplained: "Come funzionano le modalità?",
+            modeProbLimit: "La modalità Probabilità richiede almeno 4 giocatori.",
             helpFixedTitle: "Modalità Fissa",
             helpFixedDesc: "Nessuna sorpresa! Il numero di impostori sarà esattamente quello scelto da te. Se imposti 1 impostore, ce ne sarà 1. Se ne imposti 2, ce ne saranno 2.\n\nQuesta è la modalità ideale per partite equilibrate in cui tutti sanno quanti nemici stanno affrontando.",
             helpProbTitle: "Modalità Probabilità",
-            helpProbDesc: "Incertezza pura! Qui ogni giocatore ha una probabilità individuale (es. 50%) di essere un impostore.\n\nQuesto significa che il numero totale di impostori è un mistero. Potrebbero non essercene, potrebbe essercene solo uno, o addirittura tutti potrebbero essere impostores! Nessuno sa con certezza quanti nemici ci siano, il que aggiunge molta più tensione al gioco."
+            helpProbDesc: "Pura incertezza!\n\nIn questa modalità ci sarà sempre almeno un impostore, ma c'è la possibilità che ne appaiano altri.\n\nPrima di iniziare la partita, si definisce il numero massimo possibile di impostori aggiuntivi e la probabilità che appaiano.\n\nSe la fortuna è dalla tua parte, la partita avrà la quantità di impostori definita. Altrimenti, continuerà con solo 1.\n\nNessuno sa con certezza se ci saranno uno o più nemici nascosti, e questo dubbio costante aumenta la tensione e la sfiducia tra i giocatori."
         },
         themeSelection: {
             title: "Temi",
@@ -651,7 +664,9 @@ export const TRANSLATIONS = {
                 Countries: "Paesi",
                 Custom: "Personalizzato"
             },
-            poolSize: "Numero parole"
+            poolSize: "Numero parole",
+            addWord: "Aggiungi parola",
+            noWordsAdded: "Nessuna parola aggiunta"
         },
         reveal: {
             title: "Ruolo Segreto",
@@ -719,7 +734,7 @@ export const TRANSLATIONS = {
             step3Title: "3. Eliminate",
             step3Desc: "Dopo la discussione, votate per eliminare il sospettato.",
             step4Title: "4. Vittoria",
-            step4Desc: "I civili vincono se eliminano l'impostore. L'impostore vince se sopravvive o indovina la parola."
+            step4Desc: "I civili vincono se eliminano tutti gli impostori. Gli impostori vincono se eguagliano o superano in numero i civili, o se indovinano la parola."
         },
         appGuide: {
             title: "Guida all'App",
