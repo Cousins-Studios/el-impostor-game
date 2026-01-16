@@ -1,9 +1,10 @@
 import { useRouter } from 'expo-router';
 import { GripVertical, Plus, Trash2 } from 'lucide-react-native';
 import { useState } from 'react';
-import { Image, KeyboardAvoidingView, Platform, TextInput, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, TextInput, TouchableOpacity, View } from 'react-native';
 import DraggableFlatList from 'react-native-draggable-flatlist';
-import appIcon from '../../assets/images/icon.png';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { Defs, LinearGradient, Rect, Stop, Svg } from 'react-native-svg';
 import { Button } from '../../components/Button';
 import { CustomAlert } from '../../components/CustomAlert';
 import ScreenWrapper from '../../components/ScreenWrapper';
@@ -19,7 +20,24 @@ export default function AddPlayers() {
     const isDark = appTheme === 'dark';
     const [name, setName] = useState('');
     const [showError, setShowError] = useState(false);
+    const scrollOffset = useSharedValue(0);
+    const contentHeight = useSharedValue(0);
+    const layoutHeight = useSharedValue(0);
     const t = useI18n();
+
+    const topFadeStyle = useAnimatedStyle(() => {
+        return {
+            opacity: withTiming(scrollOffset.value > 5 ? 1 : 0, { duration: 300 })
+        };
+    });
+
+    const bottomFadeStyle = useAnimatedStyle(() => {
+        const canScroll = contentHeight.value > layoutHeight.value;
+        const hasMoreContent = (contentHeight.value - layoutHeight.value - scrollOffset.value) > 10;
+        return {
+            opacity: withTiming(canScroll && hasMoreContent ? 1 : 0, { duration: 300 })
+        };
+    });
 
     const handleAdd = () => {
         const trimmed = name.trim();
@@ -55,7 +73,7 @@ export default function AddPlayers() {
                 {/* Input fixed at the top */}
                 <View className="flex-row mb-6 gap-2">
                     <TextInput
-                        className={`flex-1 ${isDark ? 'bg-surface-card border-surface-soft text-white' : 'bg-white border-gray-200 text-[#101828]'} p-4 rounded-xl text-lg border font-sans`}
+                        className={`flex-1 h-14 ${isDark ? 'bg-surface-card border-surface-soft text-white' : 'bg-white border-gray-200 text-[#101828]'} px-4 rounded-xl text-lg border font-sans`}
                         placeholder={t.playerSetup.namePlaceholder}
                         placeholderTextColor={isDark ? "#7C8AA5" : "#98A2B3"}
                         value={name}
@@ -64,19 +82,42 @@ export default function AddPlayers() {
                     />
                     <TouchableOpacity
                         onPress={handleAdd}
-                        className="bg-primary-action aspect-square rounded-xl items-center justify-center p-4"
+                        className="bg-primary-action h-14 aspect-square rounded-xl items-center justify-center"
                         activeOpacity={0.7}
                     >
                         <Plus color="white" size={24} />
                     </TouchableOpacity>
                 </View>
 
-                <View className="flex-1">
+                <View className="flex-1 relative">
+                    {/* Top Fade */}
+                    <Animated.View style={[{ position: 'absolute', top: 0, left: 0, right: 0, height: 32, zIndex: 10 }, topFadeStyle]} pointerEvents="none">
+                        <Svg height="100%" width="100%">
+                            <Defs>
+                                <LinearGradient id="topFade" x1="0" y1="0" x2="0" y2="1">
+                                    <Stop offset="0" stopColor={isDark ? '#101827' : '#F2F4F7'} stopOpacity="1" />
+                                    <Stop offset="1" stopColor={isDark ? '#101827' : '#F2F4F7'} stopOpacity="0" />
+                                </LinearGradient>
+                            </Defs>
+                            <Rect x="0" y="0" width="100%" height="100%" fill="url(#topFade)" />
+                        </Svg>
+                    </Animated.View>
+
                     <DraggableFlatList
                         data={players}
                         containerStyle={{ flex: 1 }}
                         keyExtractor={item => item.id}
                         onDragEnd={({ data }) => reorderPlayers(data)}
+                        onScroll={(e) => {
+                            scrollOffset.value = e.nativeEvent.contentOffset.y;
+                        }}
+                        onContentSizeChange={(_, height) => {
+                            contentHeight.value = height;
+                        }}
+                        onLayout={(e) => {
+                            layoutHeight.value = e.nativeEvent.layout.height;
+                        }}
+                        scrollEventThrottle={16}
                         renderItem={({ item, drag, isActive }) => (
                             <TouchableOpacity
                                 onLongPress={drag}
@@ -101,9 +142,22 @@ export default function AddPlayers() {
                                 </TouchableOpacity>
                             </TouchableOpacity>
                         )}
-                        contentContainerStyle={{ paddingBottom: 20 }}
+                        contentContainerStyle={{ paddingBottom: 20, paddingTop: 10 }}
                         showsVerticalScrollIndicator={false}
                     />
+
+                    {/* Bottom Fade */}
+                    <Animated.View style={[{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 40, zIndex: 10 }, bottomFadeStyle]} pointerEvents="none">
+                        <Svg height="100%" width="100%">
+                            <Defs>
+                                <LinearGradient id="bottomFade" x1="0" y1="0" x2="0" y2="1">
+                                    <Stop offset="0" stopColor={isDark ? '#101827' : '#F2F4F7'} stopOpacity="0" />
+                                    <Stop offset="1" stopColor={isDark ? '#101827' : '#F2F4F7'} stopOpacity="1" />
+                                </LinearGradient>
+                            </Defs>
+                            <Rect x="0" y="0" width="100%" height="100%" fill="url(#bottomFade)" />
+                        </Svg>
+                    </Animated.View>
                 </View>
 
                 {/* Footer Section */}
@@ -129,11 +183,6 @@ export default function AddPlayers() {
                 buttonText={"OK"}
             />
 
-            {/* Subtle app branding */}
-            <Image
-                source={appIcon}
-                style={{ position: 'absolute', bottom: 8, right: 8, width: 20, height: 20, borderRadius: 4, opacity: 0.2 }}
-            />
         </ScreenWrapper>
     );
 }

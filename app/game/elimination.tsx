@@ -1,8 +1,7 @@
 import { useRouter } from 'expo-router';
 import { ArrowRight, Check, EyeOff, Frown, X } from 'lucide-react-native';
 import { useState } from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
-import appIcon from '../../assets/images/icon.png';
+import { TouchableOpacity, View } from 'react-native';
 import { Button } from '../../components/Button';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import { AppText } from '../../components/Typography';
@@ -48,7 +47,7 @@ export default function EliminationScreen() {
     };
 
     return (
-        <ScreenWrapper showBackButton={true} onBackPress={handleBack} className="justify-center items-center py-6">
+        <ScreenWrapper showBackButton={false} onBackPress={handleBack} className="justify-center items-center py-6">
             <View className="items-center flex-1 justify-center w-full px-6">
                 <AppText className="text-primary-action font-black text-[10px] uppercase tracking-[4px] mb-2">
                     {t.elimination.title.toUpperCase()}
@@ -101,7 +100,7 @@ export default function EliminationScreen() {
                 )}
             </View>
 
-            <View className="w-full px-6 pb-6">
+            <View className="w-full px-6 pb-16">
                 {(!isImpostor || guessResolved) && (
                     <Button
                         title={(() => {
@@ -120,11 +119,7 @@ export default function EliminationScreen() {
                 )}
             </View>
 
-            {/* Subtle app branding */}
-            <Image
-                source={appIcon}
-                style={{ position: 'absolute', bottom: 8, right: 8, width: 20, height: 20, borderRadius: 4, opacity: 0.2 }}
-            />
+
         </ScreenWrapper>
     );
 }

@@ -13,7 +13,8 @@ export interface Player {
 
 interface GameSettings {
     impostorMode: 'fixed' | 'probability';
-    impostorCount: number;
+    fixedImpostorCount: number;
+    probabilityImpostorCount: number;
     impostorProbability: number; // 0-100
     theme: ThemeKey;
     customWords: string[];
@@ -54,7 +55,8 @@ export const useGameStore = create<GameState>((set, get) => ({
     players: [],
     settings: {
         impostorMode: 'fixed',
-        impostorCount: 1,
+        fixedImpostorCount: 1,
+        probabilityImpostorCount: 2,
         impostorProbability: 50,
         theme: 'Movies',
         customWords: [],
@@ -100,10 +102,10 @@ export const useGameStore = create<GameState>((set, get) => ({
         // 1. Determine Impostor Count
         let numImpostors = 1;
         if (settings.impostorMode === 'fixed') {
-            numImpostors = settings.impostorCount;
+            numImpostors = settings.fixedImpostorCount;
         } else {
             const isLucky = Math.random() * 100 < settings.impostorProbability;
-            numImpostors = isLucky ? settings.impostorCount : 1;
+            numImpostors = isLucky ? settings.probabilityImpostorCount : 1;
         }
 
         // 2. Assign Roles

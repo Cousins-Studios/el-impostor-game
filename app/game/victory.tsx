@@ -18,6 +18,7 @@ export default function VictoryScreen() {
 
     // We trust the winner state from the store
     const gameWinner = winner || 'civilian';
+    const victoryColor = gameWinner === 'impostor' ? '#E5533D' : '#4CC9F0';
 
     const getVictoryReason = () => {
         if (gameWinner === 'impostor') {
@@ -41,10 +42,12 @@ export default function VictoryScreen() {
             <View className="flex-1 justify-between">
                 <View className="items-center flex-1 justify-center w-full">
                     <View className="mb-6 items-center justify-center">
-                        <Trophy size={64} color="#E5533D" strokeWidth={1.5} />
+                        <Trophy size={64} color={victoryColor} strokeWidth={1.5} />
                     </View>
 
-                    <AppText className="text-primary-action font-black text-4xl text-center leading-tight mb-2 uppercase">
+                    <AppText
+                        className={`font-black text-4xl text-center leading-tight mb-2 uppercase ${gameWinner === 'impostor' ? 'text-primary-action' : 'text-accent'}`}
+                    >
                         {gameWinner === 'impostor' ? t.victory.impostorsWin : t.victory.civiliansWin}
                     </AppText>
 
@@ -62,15 +65,15 @@ export default function VictoryScreen() {
                     </View>
                 </View>
 
-                <View className="items-center gap-5 mt-8 pb-4">
+                <View className="items-center gap-5 pb-4">
                     <View>
                         <Button
                             title={t.victory.playAgain}
                             onPress={handlePlayAgain}
-                            className="w-4/5 h-12"
                             icon={<RefreshCw size={18} color="white" />}
                             iconPosition="left"
-                            textClassName="text-base"
+                            className="w-128 max-w-sm h-16 rounded-3xl self-center"
+                            textClassName="text-2xl"
                         />
                     </View>
 
