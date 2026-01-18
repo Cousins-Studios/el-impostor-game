@@ -20,10 +20,34 @@ export default function GameConfig() {
     const [showModeError, setShowModeError] = useState(false);
 
     useEffect(() => {
-        if (settings.impostorMode === 'fixed') {
-            updateSettings({ fixedImpostorCount: 1 });
+        const isProb = settings.impostorMode === 'probability';
+
+        // 1. Enforce mode constraint: Probability mode needs at least 4 players
+        if (isProb && players.length < 4) {
+            updateSettings({
+                impostorMode: 'fixed',
+                fixedImpostorCount: 1
+            });
+            return;
         }
-    }, []);
+
+        // 2. Enforce count constraints
+        const minImpostors = isProb ? 2 : 1;
+        const maxImpostors = Math.max(minImpostors, Math.floor(players.length / 2));
+        const currentCount = isProb ? settings.probabilityImpostorCount : settings.fixedImpostorCount;
+
+        if (currentCount > maxImpostors) {
+            updateSettings(isProb
+                ? { probabilityImpostorCount: maxImpostors }
+                : { fixedImpostorCount: maxImpostors }
+            );
+        } else if (currentCount < minImpostors) {
+            updateSettings(isProb
+                ? { probabilityImpostorCount: minImpostors }
+                : { fixedImpostorCount: minImpostors }
+            );
+        }
+    }, [players.length, settings.impostorMode, settings.fixedImpostorCount, settings.probabilityImpostorCount]);
 
     const isProb = settings.impostorMode === 'probability';
     const currentCount = isProb ? settings.probabilityImpostorCount : settings.fixedImpostorCount;

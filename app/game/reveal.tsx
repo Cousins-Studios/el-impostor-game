@@ -1,3 +1,4 @@
+import * as Haptics from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { AlertCircle, ArrowRight, Fingerprint, ShieldCheck } from 'lucide-react-native';
 import { useState } from 'react';
@@ -50,12 +51,14 @@ export default function RevealScreen() {
 
     const handlePressIn = () => {
         setIsPressed(true);
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
         rotate.value = withTiming(180, { duration: 500 });
         scale.value = withSpring(1.02); // Reduced scale to avoid collisions
     };
 
     const handlePressOut = () => {
         setIsPressed(false);
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         rotate.value = withTiming(0, { duration: 400 });
         scale.value = withSpring(1);
     };

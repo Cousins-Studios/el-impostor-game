@@ -33,7 +33,7 @@ export default function SettingsScreen() {
                 <AppText variant="h1" className="mb-0">{t.settings.title}</AppText>
             </View>
 
-            <View className="gap-8">
+            <View className="gap-4">
                 {/* Idioma Section */}
                 <View>
                     <View className="flex-row items-center mb-4">
@@ -93,12 +93,13 @@ export default function SettingsScreen() {
                     </View>
                 </View>
 
-                <View className={`mt-8 border-t ${isDark ? 'border-surface-soft' : 'border-gray-200'} pt-8 items-center`}>
+                {/* Version Section */}
+                <View className={`items-center mt-6 border-t ${isDark ? 'border-surface-soft' : 'border-gray-200'} pt-4`}>
                     <Image
                         source={appIcon}
-                        style={{ width: 48, height: 48, borderRadius: 10, marginBottom: 12, opacity: 0.8 }}
+                        style={{ width: 44, height: 44, borderRadius: 10, marginBottom: 8, opacity: 0.6 }}
                     />
-                    <AppText className="text-muted text-center italic">
+                    <AppText className="text-muted text-center text-xs italic">
                         {t.settings.version} 1.0.0
                     </AppText>
                 </View>
